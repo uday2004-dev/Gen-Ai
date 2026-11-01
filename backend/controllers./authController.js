@@ -127,7 +127,7 @@ export const userResgister = async (req, res) => {
 //     const {email,password}=req.body
 
 //     const isMatch=await userModel.findOne({email})
-      
+
 //     if(!isMatch){
 //         return res.status(400).json({
 //             success:false,
@@ -158,7 +158,7 @@ export const userResgister = async (req, res) => {
 //             success: true
 //         })
 
-    
+
 // }
 
 
@@ -220,16 +220,34 @@ export const userLogin = async (req, res) => {
 
 
 
-export const userLogout=async (req,res) => {
-    const token =req.cookie.token
+export const userLogout = async (req, res) => {
+    const token = req.cookie.token
 
-    if(token){
-        await tokenBlockListModel.create({token})
+    if (token) {
+        await tokenBlockListModel.create({ token })
     }
 
     res.clearCookie("token")
     res.status(200).json({
-        message:"User logged out successfully"
+        message: "User logged out successfully"
     })
-    
+
+}
+
+
+export const getMeController = async (req, res) => {
+    const user = await userModel.findById(req.user.id)
+
+    res.status(200).json({
+        message: "User details fetched successfully",
+
+        user: {
+            id: user._id,
+            username: user.userName,
+            email: user.email
+        }
+    })
+
+
+
 }
