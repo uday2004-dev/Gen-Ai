@@ -221,7 +221,8 @@ export const userLogin = async (req, res) => {
 
 
 export const userLogout = async (req, res) => {
-    const token = req.cookie.token
+    // const token = req.cookie.token
+    const token = req.cookies.token
 
     if (token) {
         await tokenBlockListModel.create({ token })
