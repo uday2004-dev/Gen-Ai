@@ -203,10 +203,21 @@ export const userLogin = async (req, res) => {
             secure: process.env.NODE_ENV === "production"
         });
 
+        // return res.status(200).json({
+        //     success: true,
+        //     message: "User logged in successfully",
+        // });
+
         return res.status(200).json({
             success: true,
-            message: "User logged in successfully"
+            message: "User logged in successfully",
+            user: {
+                _id: user._id,
+                userName: user.userName,
+                email: user.email
+            }
         });
+
 
     } catch (error) {
         console.error(error);

@@ -12,10 +12,28 @@ const {loading,handleLogin}=useAuth()
 
     const navigate = useNavigate()
 
-    const Submithandler = async(e) => {
-        e.preventDefault()
-        handleLogin({email,password})
+    // const Submithandler = async(e) => {
+    //     e.preventDefault()
+    //     handleLogin({email,password})
+    //     navigate("/")
+    // }
+
+
+const Submithandler = async (e) => {
+    e.preventDefault();
+
+    try {
+        const data = await handleLogin({ email, password });
+
+        if (data?.user) {
+            navigate("/", { replace: true });
+        }
+
+    } catch (error) {
+        console.log("Login failed:", error);
     }
+};
+
     return (
         <main>
             <div className="form-container">
